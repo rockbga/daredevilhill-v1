@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DareDevilHill — Original Content & Production Services</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #080808;
+      color: #e8e8e8;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 48px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, transparent 100%);
+      transition: background 0.3s;
+    }
+    nav.scrolled { background: rgba(8,8,8,0.96); }
+    .nav-logo { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #fff; }
+    .nav-logo span { color: #c8102e; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.75); transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; width: 100%; height: 100vh; min-height: 560px;
+      background: #0a0a0a; overflow: hidden; display: flex; align-items: flex-end;
+    }
+    .hero-video-wrap { position: absolute; inset: 0; }
+    .hero-video-wrap video { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+    .hero-placeholder {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #111 0%, #1c0a0e 100%);
+      color: rgba(255,255,255,0.18); font-size: 0.75rem; letter-spacing: 0.2em;
+      text-transform: uppercase; gap: 16px;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.1) 60%, transparent 100%);
+    }
+    .hero-content { position: relative; z-index: 2; padding: 0 48px 72px; max-width: 760px; }
+    .hero-eyebrow { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: #c8102e; margin-bottom: 18px; }
+    .hero-title { font-size: clamp(2.6rem, 6vw, 5rem); font-weight: 800; line-height: 1.0; letter-spacing: -0.02em; color: #fff; margin-bottom: 22px; }
+    .hero-sub { font-size: 1rem; line-height: 1.65; color: rgba(255,255,255,0.62); max-width: 480px; margin-bottom: 36px; }
+    .btn { display: inline-block; padding: 14px 32px; border: 1.5px solid #c8102e; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: #fff; transition: background 0.25s, color 0.25s; cursor: pointer; }
+    .btn:hover { background: #c8102e; }
+    .btn-ghost { border-color: rgba(255,255,255,0.3); margin-left: 16px; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 48px; }
+    .section-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: #c8102e; margin-bottom: 14px; }
+    .section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; color: #fff; line-height: 1.15; margin-bottom: 32px; }
+    .divider { width: 40px; height: 2px; background: #c8102e; margin-bottom: 28px; }
+
+    /* ── ABOUT ── */
+    #about { background: #0d0d0d; }
+    .about-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .about-text p { font-size: 1rem; line-height: 1.78; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* Founder card */
+    .founder-card { background: #141414; border: 1px solid rgba(255,255,255,0.07); overflow: hidden; }
+    .founder-photo-wrap { width: 100%; aspect-ratio: 4/5; overflow: hidden; position: relative; background: #1a1a1a; }
+    .founder-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    /* Placeholder avatar */
+    .founder-avatar-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+      background: linear-gradient(160deg, #181010 0%, #1e0a10 100%);
+    }
+    .avatar-circle {
+      width: 100px; height: 100px; border-radius: 50%;
+      background: rgba(200,16,46,0.15); border: 2px solid rgba(200,16,46,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem; font-weight: 800; color: rgba(200,16,46,0.6);
+      letter-spacing: -0.02em;
+    }
+    .avatar-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+    .founder-info { padding: 28px 28px 32px; }
+    .founder-name { font-size: 1.45rem; font-weight: 700; color: #fff; margin-bottom: 5px; }
+    .founder-roles { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: #c8102e; margin-bottom: 18px; }
+    .founder-bio { font-size: 0.875rem; line-height: 1.72; color: rgba(255,255,255,0.58); }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .badge { padding: 5px 12px; border: 1px solid rgba(255,255,255,0.13); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .badge.veteran { border-color: rgba(200,16,46,0.6); color: #c8102e; font-weight: 600; }
+
+    /* Services */
+    .services-strip { max-width: 1100px; margin: 64px auto 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); }
+    .service-item { background: #0d0d0d; padding: 36px 32px; }
+    .service-num { font-size: 0.6rem; letter-spacing: 0.22em; color: #c8102e; margin-bottom: 14px; }
+    .service-name { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 10px; }
+    .service-desc { font-size: 0.83rem; line-height: 1.65; color: rgba(255,255,255,0.48); }
+
+    /* ── WORK ── */
+    #work { background: #080808; }
+    .work-inner { max-width: 1100px; margin: 0 auto; }
+    .work-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; }
+    .work-header .section-title { margin-bottom: 0; }
+
+    /* Feature film */
+    .film-feature { display: grid; grid-template-columns: 380px 1fr; border: 1px solid rgba(255,255,255,0.07); overflow: hidden; margin-bottom: 28px; }
+    .film-poster { background: linear-gradient(155deg, #150408 0%, #2a0a14 100%); display: flex; align-items: center; justify-content: center; min-height: 480px; position: relative; overflow: hidden; }
+    .film-poster img { width: 100%; height: 100%; object-fit: cover; }
+    .film-poster-placeholder {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+      padding: 32px; text-align: center;
+    }
+    .poster-icon { color: rgba(200,16,46,0.3); }
+    .poster-title-text { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.2); line-height: 1.6; }
+    .film-details { background: #111; padding: 56px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .film-tag { font-size: 0.63rem; letter-spacing: 0.2em; text-transform: uppercase; color: #c8102e; margin-bottom: 16px; }
+    .film-title { font-size: clamp(1.3rem, 2.2vw, 1.85rem); font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 20px; }
+    .film-desc { font-size: 0.88rem; line-height: 1.75; color: rgba(255,255,255,0.52); margin-bottom: 36px; }
+
+    /* Laurels */
+    .laurels-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 14px; }
+    .laurels { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+    .laurel {
+      border: 1px solid rgba(200,16,46,0.35);
+      padding: 7px 13px;
+      font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.58);
+      display: flex; align-items: center; gap: 7px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .laurel:hover { border-color: rgba(200,16,46,0.7); color: rgba(255,255,255,0.8); }
+    .laurel-star { color: #c8102e; font-size: 0.5rem; }
+    .laurel-year { color: rgba(255,255,255,0.3); font-size: 0.55rem; margin-left: 2px; }
+
+    /* Work grid */
+    .work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .work-card { aspect-ratio: 16/9; background: #111; border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: flex-end; overflow: hidden; position: relative; cursor: pointer; transition: border-color 0.3s; }
+    .work-card:hover { border-color: rgba(200,16,46,0.35); }
+    .work-card-bg { position: absolute; inset: 0; background: linear-gradient(135deg,#111 0%,#1a1a1a 100%); transition: transform 0.4s ease; }
+    .work-card:hover .work-card-bg { transform: scale(1.04); }
+    .work-card-label { position: relative; z-index: 2; padding: 16px; width: 100%; background: linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 100%); }
+    .work-card-eyebrow { font-size: 0.58rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.3); text-transform: uppercase; margin-bottom: 4px; }
+    .work-card-title { font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.75); }
+
+    /* ── CONTACT ── */
+    #contact { background: #0d0d0d; }
+    .contact-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-left p { font-size: 0.95rem; line-height: 1.75; color: rgba(255,255,255,0.55); margin-bottom: 36px; }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; }
+    .contact-link { display: flex; align-items: center; gap: 14px; font-size: 0.78rem; letter-spacing: 0.08em; color: rgba(255,255,255,0.48); transition: color 0.2s; }
+    .contact-link:hover { color: #fff; }
+    .contact-link-icon { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; flex-shrink: 0; transition: border-color 0.2s; font-weight: 600; }
+    .contact-link:hover .contact-link-icon { border-color: rgba(200,16,46,0.6); color: #c8102e; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    label { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.38); }
+    input, textarea, select {
+      background: #111; border: 1px solid rgba(255,255,255,0.09);
+      color: #e8e8e8; padding: 12px 16px; font-size: 0.88rem;
+      font-family: inherit; outline: none; transition: border-color 0.2s; width: 100%;
+      appearance: none; -webkit-appearance: none;
+    }
+    input:focus, textarea:focus, select:focus { border-color: rgba(200,16,46,0.6); }
+    select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='rgba(255,255,255,0.3)' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
+    select option { background: #111; }
+    textarea { resize: vertical; min-height: 110px; }
+    .btn-submit { background: #c8102e; border: none; padding: 14px 36px; color: #fff; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; font-family: inherit; transition: background 0.2s; width: fit-content; }
+    .btn-submit:hover { background: #a80e26; }
+    #form-status { font-size: 0.78rem; display: none; margin-top: 4px; letter-spacing: 0.08em; }
+
+    /* ── FOOTER ── */
+    footer { background: #080808; border-top: 1px solid rgba(255,255,255,0.06); padding: 36px 48px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .footer-logo span { color: #c8102e; }
+    .footer-copy { font-size: 0.65rem; letter-spacing: 0.08em; color: rgba(255,255,255,0.22); }
+    .footer-social { display: flex; gap: 22px; }
+    .footer-social a { font-size: 0.63rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.28); transition: color 0.2s; }
+    .footer-social a:hover { color: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 22px 24px; }
+      section { padding: 72px 24px; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .services-strip { grid-template-columns: 1fr; }
+      .film-feature { grid-template-columns: 1fr; }
+      .film-poster { min-height: 260px; }
+      .film-details { padding: 36px 28px; }
+      .work-grid { grid-template-columns: 1fr 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-content { padding: 0 24px 56px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+      .work-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    }
+    @media (max-width: 560px) {
+      .nav-links { display: none; }
+      .work-grid { grid-template-columns: 1fr; }
+      .film-feature { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <div class="nav-logo">Dare<span>Devil</span>Hill</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-video-wrap">
+    <!--
+      DROP YOUR REEL HERE — replace the placeholder div below with:
+      <video autoplay muted loop playsinline>
+        <source src="reel.mp4" type="video/mp4" />
+      </video>
+    -->
+    <div class="hero-placeholder">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.3">
+        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/>
+      </svg>
+      Hero Video / Showreel Placeholder
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Burbank, California</p>
+    <h1 class="hero-title">Stories That<br>Dare.</h1>
+    <p class="hero-sub">DareDevilHill creates bold original films and offers full-service production for filmmakers, brands, and creators.</p>
+    <a href="#work" class="btn">View Our Work</a>
+    <a href="#contact" class="btn btn-ghost">Work With Us</a>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="about-inner">
+
+    <div class="about-text">
+      <p class="section-label">About Us</p>
+      <h2 class="section-title">Built to Make<br>Something Real</h2>
+      <div class="divider"></div>
+      <p>DareDevilHill is an independent production company based in Burbank, California, dedicated to developing and producing original content that is fresh, fearless, and cinematic.</p>
+      <p>We believe the best stories come from a place of daring — creatively and technically. Whether we're developing our own films or partnering with fellow creatives to bring their vision to life, we bring the same relentless craft and collaborative spirit to every project.</p>
+      <p>From concept to screen, we offer production services for filmmakers, brands, and storytellers who refuse to settle for ordinary.</p>
+    </div>
+
+    <div class="founder-card">
+      <div class="founder-photo-wrap">
+        <!--
+          SWAP HEADSHOT: Replace the placeholder div with:
+          <img src="michael-beeson.jpg" alt="Michael Beeson" />
+        -->
+        <div class="founder-avatar-placeholder">
+          <div class="avatar-circle">MB</div>
+          <span class="avatar-label">Headshot Coming Soon</span>
+        </div>
+      </div>
+      <div class="founder-info">
+        <div class="founder-name">Michael Beeson</div>
+        <div class="founder-roles">Director · Screenwriter · Producer · Veteran</div>
+        <p class="founder-bio">Michael Beeson is the founder and creative director of DareDevilHill. A US Air Force Academy graduate, he brings discipline and a singular creative voice to every project. Before launching DareDevilHill, he spent nearly a decade at Warner Bros. on campaigns for Wonder Woman, Dunkirk, Detective Pikachu, and more — and has roots at DreamWorks Animation and CAA.</p>
+        <div class="badges">
+          <span class="badge veteran">🎖 USAF Veteran</span>
+          <span class="badge">Warner Bros.</span>
+          <span class="badge">DreamWorks Animation</span>
+          <span class="badge">CAA Alumni</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="services-strip">
+    <div class="service-item">
+      <div class="service-num">01</div>
+      <div class="service-name">Original Films</div>
+      <p class="service-desc">We develop, write, and produce original narrative films — festival-ready and built to last.</p>
+    </div>
+    <div class="service-item">
+      <div class="service-num">02</div>
+      <div class="service-name">Production Services</div>
+      <p class="service-desc">Full-service production support for independent filmmakers and creative projects at any stage.</p>
+    </div>
+    <div class="service-item">
+      <div class="service-num">03</div>
+      <div class="service-name">Creative Consulting</div>
+      <p class="service-desc">Script feedback, development strategy, and creative direction from a seasoned industry perspective.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WORK ═══ -->
+<section id="work">
+  <div class="work-inner">
+    <div class="work-header">
+      <div>
+        <p class="section-label">Our Work</p>
+        <h2 class="section-title">Selected Projects</h2>
+      </div>
+      <a href="https://www.imdb.com/name/nm8602144/" target="_blank" class="btn">IMDb Profile</a>
+    </div>
+
+    <!-- Featured Film -->
+    <div class="film-feature">
+      <div class="film-poster">
+        <!--
+          SWAP POSTER: Replace the placeholder div with:
+          <img src="revenge-poster.jpg" alt="Revenge of the Language Master 1757B" />
+        -->
+        <div class="film-poster-placeholder">
+          <svg class="poster-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/>
+          </svg>
+          <p class="poster-title-text">Film Poster<br/>Placeholder</p>
+        </div>
+      </div>
+
+      <div class="film-details">
+        <p class="film-tag">Latest Film · Short</p>
+        <h3 class="film-title">Revenge of the Language Master 1757B</h3>
+        <p class="film-desc">Completely fresh and wildly inventive — this film showcases Michael Beeson's distinct voice as a director. After a celebrated run on the international festival circuit, it has earned recognition for its originality, sharp wit, and daring creative vision.</p>
+
+        <p class="laurels-label">Festival Selections &amp; Awards</p>
+        <div class="laurels">
+          <div class="laurel"><span class="laurel-star">✦</span> Anchorage International Film Festival <span class="laurel-year">2024</span></div>
+          <div class="laurel"><span class="laurel-star">✦</span> HollyShorts Film Festival <span class="laurel-year">2024</span></div>
+          <div class="laurel"><span class="laurel-star">✦</span> Beartooth International Film Festival <span class="laurel-year">2024</span></div>
+          <div class="laurel"><span class="laurel-star">✦</span> Fargo Film Festival <span class="laurel-year">2025</span></div>
+          <div class="laurel"><span class="laurel-star">✦</span> DC Shorts International Film Festival <span class="laurel-year">2025</span></div>
+          <div class="laurel"><span class="laurel-star">✦</span> Cleveland International Film Festival</div>
+          <div class="laurel"><span class="laurel-star">✦</span> Salute Your Shorts Film Festival <span class="laurel-year">2025</span></div>
+          <div class="laurel"><span class="laurel-star">✦</span> Woods Hole Film Festival <span class="laurel-year">2025</span></div>
+          <div class="laurel"><span class="laurel-star">✦</span> Healdsburg International Short Film Festival <span class="laurel-year">2025</span></div>
+        </div>
+
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="https://mubi.com/en/cast/michael-beeson" target="_blank" class="btn">Watch on MUBI</a>
+          <a href="https://www.imdb.com/name/nm8602144/" target="_blank" class="btn btn-ghost" style="margin-left:0;">IMDb</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Future projects grid -->
+    <div class="work-grid">
+      <div class="work-card">
+        <div class="work-card-bg"></div>
+        <div class="work-card-label">
+          <div class="work-card-eyebrow">In Development</div>
+          <div class="work-card-title">Next Project</div>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-bg"></div>
+        <div class="work-card-label">
+          <div class="work-card-eyebrow">In Development</div>
+          <div class="work-card-title">Next Project</div>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-bg"></div>
+        <div class="work-card-label">
+          <div class="work-card-eyebrow">In Development</div>
+          <div class="work-card-title">Next Project</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">Let's Make<br>Something</h2>
+      <div class="divider"></div>
+      <p>Whether you're a filmmaker looking for a production partner, a brand in need of original content, or you just want to talk story — we'd love to hear from you.</p>
+      <div class="contact-links">
+        <a href="mailto:info@daredevilhill.com" class="contact-link">
+          <div class="contact-link-icon">✉</div>
+          info@daredevilhill.com
+        </a>
+        <a href="https://www.instagram.com/daredevilhill/" target="_blank" class="contact-link">
+          <div class="contact-link-icon">IG</div>
+          @daredevilhill
+        </a>
+        <a href="https://www.imdb.com/name/nm8602144/" target="_blank" class="contact-link">
+          <div class="contact-link-icon">db</div>
+          IMDb
+        </a>
+        <a href="https://mubi.com/en/cast/michael-beeson" target="_blank" class="contact-link">
+          <div class="contact-link-icon">M</div>
+          MUBI
+        </a>
+      </div>
+    </div>
+
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Your name" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="your@email.com" required />
+      </div>
+      <div class="form-group">
+        <label for="inquiry">Inquiry Type</label>
+        <select id="inquiry">
+          <option value="">Select one…</option>
+          <option>Original Content Collaboration</option>
+          <option>Production Services</option>
+          <option>Creative Consulting</option>
+          <option>Press / Media</option>
+          <option>General</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Tell us about your project…" required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Send Message</button>
+      <div id="form-status"></div>
+    </form>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">Dare<span>Devil</span>Hill</div>
+  <div class="footer-copy">© 2025 DareDevilHill, LLC · Burbank, CA</div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/daredevilhill/" target="_blank">Instagram</a>
+    <a href="https://www.imdb.com/name/nm8602144/" target="_blank">IMDb</a>
+    <a href="https://mubi.com/en/cast/michael-beeson" target="_blank">MUBI</a>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Contact form (wire to Formspree/Netlify/backend of choice)
+  function handleSubmit(e) {
+    e.preventDefault();
+    const status = document.getElementById('form-status');
+    status.style.display = 'block';
+    status.style.color = '#6ee7b7';
+    status.textContent = "Message sent — we'll be in touch soon.";
+    e.target.reset();
+    setTimeout(() => { status.style.display = 'none'; }, 5000);
+  }
+</script>
+
+</body>
+</html>
